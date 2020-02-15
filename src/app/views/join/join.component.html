@@ -1,0 +1,63 @@
+<form class="box join-form" [formGroup]="joinForm" (ngSubmit)="onSubmit()">
+  <article class="message is-info">
+    <div class="message-body">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. <strong>Pellentesque risus mi</strong>, sem.
+    </div>
+  </article>
+  <div class="field">
+    <label class="label" for="username">Username</label>
+    <div class="control">
+      <input
+        class="input"
+        [class.is-danger]="usernameControl.invalid && usernameControl.touched"
+        type="text"
+        id="username"
+        formControlName="username"
+        placeholder="Username" />
+    </div>
+    <div *ngIf="usernameControl.invalid && usernameControl.touched">
+      <p class="help is-danger" *ngIf="usernameControl.errors.required">Username is required</p>
+      <p class="help is-danger" *ngIf="usernameControl.errors.minlength">Username min length 4</p>
+    </div>
+  </div>
+  <div class="field">
+    <label class="label" for="email">Email</label>
+    <div class="control">
+      <input
+        class="input"
+        [class.is-danger]="emailControl.invalid && emailControl.touched"
+        type="text"
+        id="email"
+        formControlName="email"
+        placeholder="Email" />
+    </div>
+    <div *ngIf="emailControl.invalid && emailControl.touched">
+      <p class="help is-danger" *ngIf="emailControl.errors.required">Email is required</p>
+      <p class="help is-danger" *ngIf="emailControl.errors.minlength">Email min length 4</p>
+    </div>
+  </div>
+  <div class="field mb-2">
+    <label class="label" for="password">Password</label>
+    <div class="control">
+      <input
+        class="input"
+        [class.is-danger]="passwordControl.invalid && passwordControl.touched"
+        type="password"
+        id="password"
+        formControlName="password" />
+    </div>
+    <div *ngIf="passwordControl.invalid && passwordControl.touched">
+      <p class="help is-danger" *ngIf="passwordControl.errors.required">password is required</p>
+      <p class="help is-danger" *ngIf="passwordControl.errors.minlength">password min length 4</p>
+    </div>
+  </div>
+  <div class="field is-grouped is-grouped-centered">
+    <div class="control">
+      <button
+        [disabled]="joinForm.invalid"
+        class="button is-success"
+        type="submit">Sign up
+      </button>
+    </div>
+  </div>
+</form>

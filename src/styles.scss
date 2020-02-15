@@ -1,1 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
+
+$rems: (1, 2, 3, 4, 5); // Adjust this to include the pixel amounts you need.
+$sides: (top, bottom, left, right); $axis: (x, y); // Leave this variable alone
+
+@each $space in $rems {
+  @each $side in $sides {
+    .m#{str-slice($side, 0, 1)}-#{$space} {
+      margin-#{$side}: #{$space}rem !important;
+    }
+
+    .p#{str-slice($side, 0, 1)}-#{$space} {
+      padding-#{$side}: #{$space}rem !important;
+    }
+  }
+}
+
+html, body {
+  height: 100%;
+  background: #f5f5f5;
+}
+
+.box.login-form,
+.box.join-form {
+  max-width: 425px;
+  margin: 3rem auto;
+}

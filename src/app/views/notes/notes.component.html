@@ -1,0 +1,17 @@
+<div class="view">
+  <h4>notes works!</h4>
+  <p>---</p>
+  <div *ngIf="collectionsList.length; else collectionsListEmpty">
+    <div class="view" *ngFor="let collection of collectionsList">{{collection.title}}</div>
+  </div>
+  <p>---</p>
+  <div *ngIf="notesList.length; else notesListEmpty">
+    <div class="view" *ngFor="let note of notesList">{{note.title}}</div>
+  </div>
+  <ng-template #collectionsListEmpty>
+    <h4>Not found any collections</h4>
+  </ng-template>
+  <ng-template #notesListEmpty>
+    <h4>Not found any notes</h4>
+  </ng-template>
+</div>

@@ -1,0 +1,7 @@
+<div class="view">
+  <h4>users works!</h4>
+  <div class="view" *ngFor="let user of usersList">
+    <a [routerLink]="[user.id]">{{user.username}}</a>
+    <div>{{user.email}}</div>
+  </div>
+</div>
