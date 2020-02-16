@@ -1,11 +1,10 @@
-<div class="view">
-  <h4>shared-detail works!</h4>
-  <div class="view">
+<div class="container">
+  <div class="box shared-detail">
     <div *ngIf="note">
-      <div>{{note.title}}</div>
+      <p class="title is-1">{{note.title}}</p>
+      <p class="subtitle is-3">Subtitle 3</p>
       <div>{{note.description}}</div>
-      <div>{{note.created_at}}</div>
-      <div>{{note.updated_at}}</div>
+      <p class="mt-2">{{note.updated_at}}</p>
     </div>
   </div>
 </div>

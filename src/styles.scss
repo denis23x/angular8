@@ -25,3 +25,10 @@ html, body {
   max-width: 425px;
   margin: 3rem auto;
 }
+
+.box.shared-detail,
+.box.user-list,
+.box.profile {
+  max-width: 768px;
+  margin: 3rem auto;
+}
