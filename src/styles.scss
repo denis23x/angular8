@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
-$rems: (1, 2, 3, 4, 5); // Adjust this to include the pixel amounts you need.
+$rems: (0, 1, 2, 3, 4, 5); // Adjust this to include the pixel amounts you need.
 $sides: (top, bottom, left, right); $axis: (x, y); // Leave this variable alone
 
 @each $space in $rems {

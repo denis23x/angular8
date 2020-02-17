@@ -14,13 +14,19 @@
             </figure>
           </div>
           <div class="media-content">
-            <a class="title is-4 is-block has-text-info" [routerLink]="['/shared', note.id]">{{note.title}}</a>
-            <p class="subtitle is-6">@johnsmith</p>
+            <a
+              class="title is-4 is-block has-text-info mb-0"
+              [routerLink]="(isMy || isMyNote(note.user.id) ? ['/my-notes', note.id] : ['/notes', note.id])">{{note.title}}
+            </a>
+            <a
+              class="subtitle is-6 is-lowercase"
+              [routerLink]="(isMy || isMyNote(note.user.id) ? ['/profile'] : ['/users', note.user.id])">@{{note.user.username}}
+            </a>
           </div>
         </div>
-        <div class="content">
+        <div class="content is-size-7">
           {{note.description}}<br>
-          <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+          <time class="is-block mt-1" datetime="2016-1-1">{{note.updated_at | date:'d MMMM, HH:mm' : '0' : 'ru'}}</time>
         </div>
       </div>
     </div>

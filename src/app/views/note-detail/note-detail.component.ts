@@ -5,10 +5,10 @@ import {Note} from '../../models/note';
 import {Subscription} from 'rxjs';
 
 @Component({
-  selector: 'app-shared-detail',
-  templateUrl: './shared-detail.component.html'
+  selector: 'app-note-detail',
+  templateUrl: './note-detail.component.html'
 })
-export class SharedDetailComponent implements OnInit {
+export class NoteDetailComponent implements OnInit {
   public note: Note;
   public routeSubscription: Subscription;
 

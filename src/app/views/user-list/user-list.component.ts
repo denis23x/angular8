@@ -3,10 +3,10 @@ import {ApiService} from '../../services/api.service';
 import {UserInner} from '../../models/user';
 
 @Component({
-  selector: 'app-users',
-  templateUrl: './users.component.html'
+  selector: 'app-user-list',
+  templateUrl: './user-list.component.html'
 })
-export class UsersComponent implements OnInit {
+export class UserListComponent implements OnInit {
   public usersList: UserInner[] = [];
 
   constructor(

@@ -7,7 +7,7 @@ import {AuthService} from '../../services/auth.service';
   templateUrl: './navbar.component.html'
 })
 export class NavbarComponent implements OnInit {
-  currentUser: User;
+  public currentUser: User;
 
   constructor(
     private authService: AuthService

@@ -1,15 +1,8 @@
-<div class="view">
-  <h4>user-detail works!</h4>
-  <div *ngIf="user">
-    <div>username: {{user.username}}</div>
-    <div>email: {{user.email}}</div>
-    <div>created_at: {{user.created_at}}</div>
-    <div>updated_at: {{user.updated_at}}</div>
-    <div>blocked: {{user.blocked}}</div>
-    <div>provider: {{user.provider}}</div>
-    <div class="view" *ngFor="let note of user.notes">
-      <a [routerLink]="['/shared', note.id]">{{note.title}}</a>
-      <div>{{note.description}}</div>
+<div class="container">
+  <div class="box profile">
+    <div *ngIf="currentUserDetail">
+      <p class="title is-1">{{currentUserDetail.username}}</p>
+      <p class="subtitle is-3">{{currentUserDetail.email}}</p>
     </div>
   </div>
 </div>

@@ -10,8 +10,12 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './login.component.html'
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup;
   returnUrl: string;
+
+  loginForm: FormGroup = this.formBuilder.group({
+    identifier: ['', [Validators.minLength(4), Validators.required]],
+    password: ['', [Validators.minLength(4), Validators.required]]
+  });
 
   constructor(
     private formBuilder: FormBuilder,
@@ -27,11 +31,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loginForm = this.formBuilder.group({
-      identifier: ['', [Validators.minLength(4), Validators.required]],
-      password: ['', [Validators.minLength(4), Validators.required]]
-    });
-
     this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/profile';
   }
 

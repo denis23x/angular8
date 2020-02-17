@@ -1,10 +1,14 @@
 import { Collection } from './collection';
+import { UserInner } from './user';
 
 export class Note {
-  id: number;
-  title: string;
-  description: string;
-  created_at: string;
-  updated_at: string;
-  collections: Collection[];
+  constructor(
+    public id: number,
+    public title: string,
+    public description: string,
+    public created_at: string,
+    public updated_at: string,
+    public user: UserInner,
+    public collections: Collection[]
+  ) { }
 }

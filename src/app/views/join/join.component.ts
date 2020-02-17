@@ -10,8 +10,13 @@ import {first} from 'rxjs/operators';
   templateUrl: './join.component.html'
 })
 export class JoinComponent implements OnInit {
-  joinForm: FormGroup;
   returnUrl: string;
+
+  joinForm: FormGroup = this.formBuilder.group({
+    username: ['', [Validators.minLength(4), Validators.required]],
+    email: ['', [Validators.minLength(4), Validators.email, Validators.required]],
+    password: ['', [Validators.minLength(4), Validators.required]]
+  });
 
   constructor(
     private formBuilder: FormBuilder,
@@ -28,12 +33,6 @@ export class JoinComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.joinForm = this.formBuilder.group({
-      username: ['denisname', [Validators.minLength(4), Validators.required]],
-      email: ['denis@email.ru', [Validators.minLength(4), Validators.email, Validators.required]],
-      password: ['russia911', [Validators.minLength(4), Validators.required]]
-    });
-
     this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/profile';
   }
 

@@ -11,7 +11,7 @@
   </div>
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
-      <a class="navbar-item" [routerLink]="['/shared']" [routerLinkActive]="['is-active']">Shared notes</a>
+      <a class="navbar-item" [routerLink]="['/notes']" [routerLinkActive]="['is-active']">Shared notes</a>
     </div>
     <div class="navbar-end" *ngIf="!currentUser">
       <div class="navbar-item">
@@ -24,9 +24,9 @@
       </div>
     </div>
     <div class="navbar-end" *ngIf="currentUser">
-      <a class="navbar-item" [routerLink]="['/users']" [routerLinkActive]="['is-active']">Users</a>
-      <a class="navbar-item" [routerLink]="['/notes']" [routerLinkActive]="['is-active']">Notes</a>
+      <a class="navbar-item" [routerLink]="['/my-notes']" [routerLinkActive]="['is-active']">My notes</a>
       <a class="navbar-item" [routerLink]="['/profile']" [routerLinkActive]="['is-active']">Profile</a>
+<!--      <a class="navbar-item" [routerLink]="['/settings']" [routerLinkActive]="['is-active']">Settings</a>-->
       <div class="navbar-item">
         <div class="buttons">
           <a class="button is-light" (click)="clickLogout()">Log out</a>
