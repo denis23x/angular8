@@ -28,6 +28,8 @@ export class NoteListComponent implements OnInit {
   getNotesList(): void {
     if (this.isMy) {
       this.notesListParams.user = this.currentUser.user.id;
+    } else if (this.route.snapshot.params.id) {
+      this.notesListParams.user = this.route.snapshot.params.id;
     }
 
     this.apiService.getNotesList(this.notesListParams).subscribe(notes => {
