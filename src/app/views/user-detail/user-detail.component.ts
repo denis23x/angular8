@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ApiService} from '../../services/api.service';
 import {User, UserInner} from '../../models/user';
-import {Subscription} from 'rxjs';
 import {AuthService} from '../../services/auth.service';
 
 @Component({
@@ -10,10 +9,8 @@ import {AuthService} from '../../services/auth.service';
   templateUrl: './user-detail.component.html'
 })
 export class UserDetailComponent implements OnInit {
-  public isMy: boolean = Object.prototype.hasOwnProperty.call(this.route.snapshot.data, 'isMy');
-  public currentUser: User = this.authService.currentUserValue;
-  public currentUserDetail: UserInner;
-  public routeSubscription: Subscription;
+  private currentUser: User = this.authService.currentUserValue;
+  private currentUserDetail: UserInner;
 
   constructor(
     private apiService: ApiService,
@@ -26,16 +23,16 @@ export class UserDetailComponent implements OnInit {
   }
 
   getUserById(): void {
-    this.routeSubscription = this.route.params.subscribe(params => {
-      let id = params.id;
+    const userId = this.isProfileView() ? this.currentUser.user.id : this.route.snapshot.params.id;
 
-      if (this.isMy) {
-        id = this.currentUser.user.id;
-      }
-
-      this.apiService.getUserById(id).subscribe(user => {
-        this.currentUserDetail = user;
-      });
+    // tslint:disable-next-line:max-line-length
+    this.apiService.getUserById(userId).subscribe(({ id, username, email, provider, confirmed, blocked, role, created_at, updated_at, notes, collections }) => {
+      // tslint:disable-next-line:max-line-length
+      this.currentUserDetail = new UserInner(id, username, email, provider, confirmed, blocked, role, created_at, updated_at, notes, collections);
     });
+  }
+
+  isProfileView(): boolean {
+    return ['profile'].includes(this.route.snapshot.routeConfig.path);
   }
 }

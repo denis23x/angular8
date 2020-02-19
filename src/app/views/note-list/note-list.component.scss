@@ -1,0 +1,46 @@
+.container-masonry {
+  padding: 0.5rem;
+  .masonry-inner {
+    position: relative;
+    &::after {
+      content: '';
+      display: block;
+      clear: both;
+    }
+  }
+}
+
+@mixin masonry-card-width() {
+  @media only screen and (min-width: 1920px) {
+    width: calc(100% / 8);
+  }
+  @media only screen and (max-width: 1920px) {
+    width: calc(100% / 6);
+  }
+  @media only screen and (max-width: 1440px) {
+    width: calc(100% / 5);
+  }
+  @media only screen and (max-width: 1024px) {
+    width: calc(100% / 4);
+  }
+  @media only screen and (max-width: 768px) {
+    width: calc(100% / 3);
+  }
+  @media only screen and (max-width: 600px) {
+    width: calc(100% / 2);
+  }
+  @media only screen and (max-width: 425px) {
+    width: 100%;
+  }
+}
+
+.masonry-sizer {
+  @include masonry-card-width;
+}
+.masonry-card {
+  @include masonry-card-width;
+  padding: 0.5rem;
+  .card {
+    border-radius: 6px;
+  }
+}

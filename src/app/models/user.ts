@@ -9,17 +9,19 @@ export class UserRole {
 }
 
 export class UserInner {
-  id: number;
-  username: string;
-  email: string;
-  provider: string;
-  confirmed: boolean;
-  blocked: boolean;
-  role: UserRole | number;
-  created_at: string;
-  updated_at: string;
-  notes: Note[];
-  collections: Collection[];
+  constructor(
+    public id: number,
+    public username: string,
+    public email: string,
+    public provider: string,
+    public confirmed: boolean,
+    public blocked: boolean,
+    public role: UserRole | number,
+    public created_at: string,
+    public updated_at: string,
+    public notes: Note[],
+    public collections: Collection[]
+  ) { }
 }
 
 export class User {

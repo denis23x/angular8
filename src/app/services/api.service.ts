@@ -30,6 +30,10 @@ export class ApiService {
     return this.httpClient.post(`${host}/auth/local/register`, this.setParams(params));
   }
 
+  public getCollectionsList(params?: object): Observable<any> {
+    return this.httpClient.get(`${host}/collections`, { params: this.setParams(params) });
+  }
+
   public getNotesList(params?: object): Observable<any> {
     return this.httpClient.get(`${host}/notes`, { params: this.setParams(params) });
   }

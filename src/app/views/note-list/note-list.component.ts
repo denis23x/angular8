@@ -1,19 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ApiService} from '../../services/api.service';
 import {AuthService} from '../../services/auth.service';
 import {Note} from '../../models/note';
 import {User} from '../../models/user';
 import { ActivatedRoute } from '@angular/router';
+import Masonry from 'masonry-layout';
 
 @Component({
   selector: 'app-note-list',
-  templateUrl: './note-list.component.html'
+  templateUrl: './note-list.component.html',
+  styleUrls: ['./note-list.component.scss']
 })
 export class NoteListComponent implements OnInit {
-  public isMy: boolean = Object.prototype.hasOwnProperty.call(this.route.snapshot.data, 'isMy');
-  public currentUser: User = this.authService.currentUserValue;
-  public notesList: Note[] = [];
-  public notesListParams: any = {};
+  @ViewChild('masonryInner', { static: false }) masonryInner: ElementRef;
+
+  private currentUser: User = this.authService.currentUserValue;
+  private notesList: Note[] = [];
+  private notesListParams: any = {};
+  private masonry: Masonry;
 
   constructor(
     private apiService: ApiService,
@@ -26,21 +30,33 @@ export class NoteListComponent implements OnInit {
   }
 
   getNotesList(): void {
-    if (this.isMy) {
+    if (this.isMyNotesView()) {
       this.notesListParams.user = this.currentUser.user.id;
-    } else if (this.route.snapshot.params.id) {
-      this.notesListParams.user = this.route.snapshot.params.id;
     }
 
     this.apiService.getNotesList(this.notesListParams).subscribe(notes => {
       this.notesList = Array.from(notes, ({ id, title, description, created_at, updated_at, user, collections }) => {
         return new Note(id, title, description, created_at, updated_at, user, collections);
       });
+
+      const tick = setTimeout(() => {
+        this.masonry = new Masonry(this.masonryInner.nativeElement, {
+          itemSelector: '.masonry-card',
+          columnWidth: '.masonry-sizer',
+          percentPosition: true,
+        });
+
+        clearTimeout(tick);
+      });
     });
   }
 
-  isMyNote(id: number): boolean {
+  isMyNoteCard(id: number): boolean {
     return this.currentUser ? this.currentUser.user.id === id : false;
+  }
+
+  isMyNotesView(): boolean {
+    return ['my-notes'].includes(this.route.snapshot.routeConfig.path);
   }
 }
 

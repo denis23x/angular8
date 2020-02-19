@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { AuthService } from './services/auth.service';
-import {User} from './models/user';
 
 @Component({
   selector: 'app-root',
@@ -8,15 +6,7 @@ import {User} from './models/user';
 })
 export class AppComponent {
   title = 'appdev';
-  currentUser: User;
 
-  constructor(
-    private authService: AuthService
-  ) {
-    this.authService.currentUser.subscribe(x => this.currentUser = x);
-  }
+  constructor() { }
 
-  clickLogout() {
-    this.authService.logout();
-  }
 }

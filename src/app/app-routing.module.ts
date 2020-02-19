@@ -26,13 +26,11 @@ const routes: Routes = [
     path: 'my-notes',
     component: NoteListComponent,
     canActivate: [ AuthGuard ],
-    data: { isMy: true }
   },
   {
     path: 'my-notes/:id',
     component: NoteDetailComponent,
-    canActivate: [ AuthGuard ],
-    data: { isMy: true }
+    canActivate: [ AuthGuard ]
   },
   {
     path: 'users',
@@ -41,26 +39,11 @@ const routes: Routes = [
   {
     path: 'users/:id',
     component: UserDetailComponent,
-    children: [
-      {
-        path: '',
-        component: NoteListComponent,
-        outlet: 'notes'
-      }
-    ]
   },
   {
     path: 'profile',
     component: UserDetailComponent,
-    canActivate: [ AuthGuard ],
-    children: [
-      {
-        path: '',
-        component: NoteListComponent,
-        outlet: 'notes'
-      }
-    ],
-    data: { isMy: true }
+    canActivate: [ AuthGuard ]
   },
   { path: '**', redirectTo: '' }
 ];

@@ -1,61 +1,62 @@
-<form class="box login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-  <div class="card is-shadowless mb-1">
-    <div class="card-content">
-      <div class="media">
-        <div class="media-left">
-          <figure class="image is-48x48">
-            <img src="../../../assets/logo.svg" alt="">
-          </figure>
+<div class="container-login">
+  <form class="box" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="card is-shadowless mb-1">
+      <div class="card-content">
+        <div class="media">
+          <div class="media-left">
+            <figure class="image is-48x48">
+              <img src="../../../assets/logo.svg" alt="">
+            </figure>
+          </div>
+          <div class="media-content">
+            <p class="title is-4">John Smith</p>
+            <p class="subtitle is-6">@johnsmith</p>
+          </div>
         </div>
-        <div class="media-content">
-          <p class="title is-4">John Smith</p>
-          <p class="subtitle is-6">@johnsmith</p>
+        <div class="content">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          Phasellus nec iaculis mauris.
         </div>
       </div>
-      <div class="content">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        Phasellus nec iaculis mauris.
+    </div>
+    <div class="field">
+      <label class="label" for="identifier">Identifier</label>
+      <div class="control">
+        <input
+          class="input"
+          [class.is-danger]="identifierControl.invalid && identifierControl.touched"
+          type="text"
+          id="identifier"
+          formControlName="identifier"
+          placeholder="Username or Email" />
+      </div>
+      <div *ngIf="identifierControl.invalid && identifierControl.touched">
+        <p class="help is-danger" *ngIf="identifierControl.errors.required">identifier is required</p>
+        <p class="help is-danger" *ngIf="identifierControl.errors.minlength">identifier min length 4</p>
       </div>
     </div>
-  </div>
-  <div class="field">
-    <label class="label" for="identifier">Identifier</label>
-    <div class="control">
-      <input
-        class="input"
-        [class.is-danger]="identifierControl.invalid && identifierControl.touched"
-        type="text"
-        id="identifier"
-        formControlName="identifier"
-        placeholder="Username or Email" />
+    <div class="field mb-2">
+      <label class="label" for="password">Password</label>
+      <div class="control">
+        <input
+          class="input"
+          [class.is-danger]="passwordControl.invalid && passwordControl.touched"
+          type="password"
+          id="password"
+          formControlName="password" />
+      </div>
+      <div *ngIf="passwordControl.invalid && passwordControl.touched">
+        <p class="help is-danger" *ngIf="passwordControl.errors.required">password is required</p>
+        <p class="help is-danger" *ngIf="passwordControl.errors.minlength">password min length 4</p>
+      </div>
     </div>
-    <div *ngIf="identifierControl.invalid && identifierControl.touched">
-      <p class="help is-danger" *ngIf="identifierControl.errors.required">identifier is required</p>
-      <p class="help is-danger" *ngIf="identifierControl.errors.minlength">identifier min length 4</p>
+    <div class="field is-grouped is-grouped-centered">
+      <div class="control">
+        <button
+          class="button is-success"
+          [disabled]="loginForm.invalid"
+          type="submit">Submit</button>
+      </div>
     </div>
-  </div>
-  <div class="field mb-2">
-    <label class="label" for="password">Password</label>
-    <div class="control">
-      <input
-        class="input"
-        [class.is-danger]="passwordControl.invalid && passwordControl.touched"
-        type="password"
-        id="password"
-        formControlName="password" />
-    </div>
-    <div *ngIf="passwordControl.invalid && passwordControl.touched">
-      <p class="help is-danger" *ngIf="passwordControl.errors.required">password is required</p>
-      <p class="help is-danger" *ngIf="passwordControl.errors.minlength">password min length 4</p>
-    </div>
-  </div>
-  <div class="field is-grouped is-grouped-centered">
-    <div class="control">
-      <button
-        class="button is-success"
-        [disabled]="loginForm.invalid"
-        type="submit">Submit</button>
-    </div>
-  </div>
-</form>
-
+  </form>
+</div>

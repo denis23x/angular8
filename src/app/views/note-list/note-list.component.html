@@ -1,32 +1,25 @@
-<div class="columns ml-1 mr-1 mt-1 mb-1">
-  <div class="column is-2-fullhd is-3-widescreen is-3-desktop is-two-third-tablet is-12-mobile" *ngFor="let note of notesList">
-    <div class="card" >
-      <!--<div class="card-image">
-        <figure class="image is-4by3">
-          <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
-        </figure>
-      </div>-->
-      <div class="card-content">
-        <div class="media">
-          <div class="media-left">
-            <figure class="image is-48x48">
-              <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
-            </figure>
+<div class="container-masonry">
+  <div class="masonry-inner" #masonryInner>
+    <div class="masonry-sizer"></div>
+    <div class="masonry-card" *ngFor="let note of notesList">
+      <div class="card">
+        <div class="card-content">
+          <div class="media">
+            <div class="media-content">
+              <a
+                class="title is-4 is-block has-text-info mb-0"
+                [routerLink]="(isMyNotesView() || isMyNoteCard(note.user.id) ? ['/my-notes', note.id] : ['/notes', note.id])">{{note.title}}
+              </a>
+              <a
+                class="subtitle is-6 is-lowercase"
+                [routerLink]="(isMyNotesView() || isMyNoteCard(note.user.id) ? ['/profile'] : ['/users', note.user.id])">@{{note.user.username}}
+              </a>
+            </div>
           </div>
-          <div class="media-content">
-            <a
-              class="title is-4 is-block has-text-info mb-0"
-              [routerLink]="(isMy || isMyNote(note.user.id) ? ['/my-notes', note.id] : ['/notes', note.id])">{{note.title}}
-            </a>
-            <a
-              class="subtitle is-6 is-lowercase"
-              [routerLink]="(isMy || isMyNote(note.user.id) ? ['/profile'] : ['/users', note.user.id])">@{{note.user.username}}
-            </a>
+          <div class="content is-size-7">
+            {{note.description}}<br>
+            <time class="is-block mt-1" datetime="2016-1-1">{{note.updated_at | date:'d MMMM, HH:mm' : '0' : 'ru'}}</time>
           </div>
-        </div>
-        <div class="content is-size-7">
-          {{note.description}}<br>
-          <time class="is-block mt-1" datetime="2016-1-1">{{note.updated_at | date:'d MMMM, HH:mm' : '0' : 'ru'}}</time>
         </div>
       </div>
     </div>
