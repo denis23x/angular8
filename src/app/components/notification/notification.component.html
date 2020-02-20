@@ -1,0 +1,9 @@
+<div class="container-notification">
+  <div
+    [ngClass]="['notification', 'animated', notify.animName, 'faster', notify.className]"
+    *ngFor="let notify of notificationListActive()">
+    <button class="delete" (click)="notificationRemove(notify)"></button>
+    {{notify.message}}
+  </div>
+</div>
+

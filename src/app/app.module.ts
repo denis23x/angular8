@@ -17,6 +17,7 @@ import { JwtInterceptor} from './interceptors/jwt.interceptor';
 import { ErrorInterceptor} from './interceptors/error.interceptor';
 import { AppInitializer} from './app.initializer';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { NotificationComponent } from './components/notification/notification.component';
 
 import { registerLocaleData } from '@angular/common';
 import localeRu from '@angular/common/locales/ru';
@@ -38,6 +39,7 @@ const initializeApp = (appInitService: AppInitializer) => {
     UserListComponent,
     UserDetailComponent,
     NavbarComponent,
+    NotificationComponent
   ],
   imports: [
     BrowserModule,
