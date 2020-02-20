@@ -5,6 +5,7 @@ import {Note} from '../../models/note';
 import {User} from '../../models/user';
 import { ActivatedRoute } from '@angular/router';
 import Masonry from 'masonry-layout';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'app-note-list',
@@ -17,7 +18,10 @@ export class NoteListComponent implements OnInit {
   private currentUser: User = this.authService.currentUserValue;
   private notesList: Note[] = [];
   private notesListParams: any = {};
+  private notesListSubject: Subject<Array<Note>> = new Subject<Array<Note>>();
+  private loader = true;
   private masonry: Masonry;
+  private collectionsIds: object = { angular: 1, sass: 2, vue: 3, git: 4 };
 
   constructor(
     private apiService: ApiService,
@@ -27,17 +31,9 @@ export class NoteListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getNotesList();
-  }
 
-  getNotesList(): void {
-    if (this.isMyNotesView()) {
-      this.notesListParams.user = this.currentUser.user.id;
-    }
-
-    this.apiService.getNotesList(this.notesListParams).subscribe(notes => {
-      this.notesList = Array.from(notes, ({ id, title, description, created_at, updated_at, user, collections }) => {
-        return new Note(id, title, description, created_at, updated_at, user, collections);
-      });
+    this.notesListSubject.subscribe(notes => {
+      this.notesList = notes;
 
       const tick = setTimeout(() => {
         this.masonry = new Masonry(this.masonryInner.nativeElement, {
@@ -47,12 +43,24 @@ export class NoteListComponent implements OnInit {
         });
 
         clearTimeout(tick);
+        this.loader = false;
       });
     });
   }
 
-  isMyNoteCard(id: number): boolean {
-    return this.currentUser ? this.currentUser.user.id === id : false;
+  getNotesList(): void {
+    if (this.isMyNotesView()) {
+      this.notesListParams.user = this.currentUser.user.id;
+    } else {
+      this.notesListParams.collection = this.collectionsIds[this.route.snapshot.routeConfig.path];
+    }
+
+    this.apiService.getNotesList(this.notesListParams).subscribe(notes => {
+      // tslint:disable-next-line:max-line-length
+      notes.length ? this.notesListSubject.next(Array.from(notes, ({ id, title, description, created_at, updated_at, user, collections }) => {
+        return new Note(id, title, description, created_at, updated_at, user, collections);
+      })) : this.loader = false;
+    });
   }
 
   isMyNotesView(): boolean {

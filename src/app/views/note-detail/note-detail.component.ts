@@ -3,18 +3,20 @@ import {ActivatedRoute} from '@angular/router';
 import {ApiService} from '../../services/api.service';
 import {Note} from '../../models/note';
 import {Subscription} from 'rxjs';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-note-detail',
   templateUrl: './note-detail.component.html'
 })
 export class NoteDetailComponent implements OnInit {
-  public note: Note;
-  public routeSubscription: Subscription;
+  private note: Note;
+  private routeSubscription: Subscription;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private apiService: ApiService,
+    private location: Location
   ) { }
 
   ngOnInit() {

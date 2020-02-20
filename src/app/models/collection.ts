@@ -1,9 +1,11 @@
 import { Note } from './note';
 
 export class Collection {
-  id: number;
-  title: string;
-  created_at: string;
-  updated_at: string;
-  notes: Note[];
+  constructor(
+    public id: number,
+    public title: string,
+    public created_at: string,
+    public updated_at: string,
+    public notes: Note[],
+  ) { }
 }

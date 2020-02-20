@@ -1,10 +1,16 @@
-<div class="container-note-detail">
-  <div class="box">
-    <div *ngIf="note">
-      <p class="title is-1">{{note.title}}</p>
-      <p class="subtitle is-3">Subtitle 3</p>
-      <div>{{note.description}}</div>
-      <p class="mt-2">{{note.updated_at}}</p>
-    </div>
+<div class="modal is-active">
+  <div class="modal-background animated fadeIn faster" (click)="location.back()"></div>
+  <div class="modal-card animated zoomIn faster">
+    <header class="modal-card-head">
+      <p class="modal-card-title">{{note.title}}</p>
+      <button class="delete" aria-label="close" (click)="location.back()"></button>
+    </header>
+    <section class="modal-card-body">
+      {{note.description}}
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-success">Save changes</button>
+      <button class="button">Cancel</button>
+    </footer>
   </div>
 </div>

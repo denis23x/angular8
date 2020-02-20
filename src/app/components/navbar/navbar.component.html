@@ -1,7 +1,8 @@
 <nav class="navbar" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <a class="navbar-item" [routerLink]="['/']">
-      <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+      <!--<img src="../../../assets/logo.svg">-->
+      <span class="is-size-5">Shared notes</span>
     </a>
     <a
       role="button"
@@ -21,8 +22,34 @@
     class="navbar-menu"
     [class.is-active]="toggleNavbar">
     <div class="navbar-start">
-      <a class="navbar-item" [routerLink]="['/notes']" [routerLinkActive]="['is-active']">Shared notes</a>
-      <a class="navbar-item" [routerLink]="['/users']" [routerLinkActive]="['is-active']">Find user</a>
+      <a
+        class="navbar-item navbar-logo"
+        [routerLink]="['/angular']"
+        [routerLinkActive]="['is-active']">
+        <img src="../../../assets/logos/angular.png" alt="Angular">
+        <span>Angular</span>
+      </a>
+      <a
+        class="navbar-item navbar-logo"
+        [routerLink]="['/sass']"
+        [routerLinkActive]="['is-active']">
+        <img src="../../../assets/logos/sass.png" alt="SASS">
+        <span>SASS</span>
+      </a>
+      <a
+        class="navbar-item navbar-logo"
+        [routerLink]="['/vue']"
+        [routerLinkActive]="['is-active']">
+        <img src="../../../assets/logos/vue.png" alt="Vue">
+        <span>Vue</span>
+      </a>
+      <a
+        class="navbar-item navbar-logo"
+        [routerLink]="['/git']"
+        [routerLinkActive]="['is-active']">
+        <img src="../../../assets/logos/git.png" alt="Git">
+        <span>Git</span>
+      </a>
     </div>
     <div class="navbar-end" *ngIf="!currentUser">
       <div class="navbar-item">
@@ -35,8 +62,16 @@
       </div>
     </div>
     <div class="navbar-end" *ngIf="currentUser">
-      <a class="navbar-item" [routerLink]="['/my-notes']" [routerLinkActive]="['is-active']">My notes</a>
-      <a class="navbar-item" [routerLink]="['/profile']" [routerLinkActive]="['is-active']">Profile</a>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">{{currentUser.user.email}}</a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" [routerLink]="['/profile']" [routerLinkActive]="['is-active']">Profile</a>
+          <a class="navbar-item" [routerLink]="['/my-notes']" [routerLinkActive]="['is-active']">My notes</a>
+          <a class="navbar-item" [routerLink]="['/users']" [routerLinkActive]="['is-active']">Find user</a>
+          <hr class="navbar-divider">
+          <a class="navbar-item">About</a>
+        </div>
+      </div>
       <div class="navbar-item">
         <div class="buttons">
           <a class="button is-light" (click)="clickLogout()">Log out</a>
