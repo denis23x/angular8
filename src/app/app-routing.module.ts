@@ -14,10 +14,6 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'join', component: JoinComponent },
-  // { path: 'angular', component: NoteListComponent, children: [ { path: ':id', component: NoteDetailComponent } ]  },
-  // { path: 'sass', component: NoteListComponent, children: [ { path: ':id', component: NoteDetailComponent } ] },
-  // { path: 'vue', component: NoteListComponent, children: [ { path: ':id', component: NoteDetailComponent } ]  },
-  // { path: 'git', component: NoteListComponent, children: [ { path: ':id', component: NoteDetailComponent } ]  },
   {
     path: 'my-notes',
     component: NoteListComponent,

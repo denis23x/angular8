@@ -1,11 +1,13 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ApiService} from '../../services/api.service';
 import {AuthService} from '../../services/auth.service';
+import {CollectionsService} from '../../services/collections.service';
 import {Note} from '../../models/note';
 import {User} from '../../models/user';
 import { ActivatedRoute } from '@angular/router';
 import Masonry from 'masonry-layout';
 import {Subject} from 'rxjs';
+import {Collection} from '../../models/collection';
 
 @Component({
   selector: 'app-note-list',
@@ -16,17 +18,18 @@ export class NoteListComponent implements OnInit {
   @ViewChild('masonryInner', { static: false }) masonryInner: ElementRef;
 
   private currentUser: User = this.authService.currentUserValue;
+  private currentCollection: Collection = this.collectionsService.collectionsList.find(c => c.path === this.route.snapshot.routeConfig.path);
   private notesList: Note[] = [];
   private notesListParams: any = {};
   private notesListSubject: Subject<Array<Note>> = new Subject<Array<Note>>();
   private loader = true;
   private masonry: Masonry;
-  private collectionsIds: object = { angular: 1, sass: 2, vue: 3, git: 4 };
 
   constructor(
     private apiService: ApiService,
     private authService: AuthService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private collectionsService: CollectionsService
   ) { }
 
   ngOnInit(): void {
@@ -52,11 +55,10 @@ export class NoteListComponent implements OnInit {
     if (this.isMyNotesView()) {
       this.notesListParams.user = this.currentUser.user.id;
     } else {
-      this.notesListParams.collection = this.collectionsIds[this.route.snapshot.routeConfig.path];
+      this.notesListParams.collection = this.currentCollection.id;
     }
 
     this.apiService.getNotesList(this.notesListParams).subscribe(notes => {
-      // tslint:disable-next-line:max-line-length
       notes.length ? this.notesListSubject.next(Array.from(notes, ({ id, title, description, created_at, updated_at, user, collections }) => {
         return new Note(id, title, description, created_at, updated_at, user, collections);
       })) : this.loader = false;
