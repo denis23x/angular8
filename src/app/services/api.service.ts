@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import { environment } from '../../environments/environment';
 
-const host = 'http://localhost:1337';
+const host = environment.backendHost;
 
 @Injectable({
   providedIn: 'root'

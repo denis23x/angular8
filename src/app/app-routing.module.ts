@@ -9,16 +9,15 @@ import { UserListComponent } from './views/user-list/user-list.component';
 import { UserDetailComponent } from './views/user-detail/user-detail.component';
 
 import { AuthGuard } from './guards/auth.guard';
-// import { Collections } from './resolvers/collections.service';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'join', component: JoinComponent },
-  { path: 'angular', component: NoteListComponent, children: [ { path: ':id', component: NoteDetailComponent } ]  },
-  { path: 'sass', component: NoteListComponent, children: [ { path: ':id', component: NoteDetailComponent } ] },
-  { path: 'vue', component: NoteListComponent, children: [ { path: ':id', component: NoteDetailComponent } ]  },
-  { path: 'git', component: NoteListComponent, children: [ { path: ':id', component: NoteDetailComponent } ]  },
+  // { path: 'angular', component: NoteListComponent, children: [ { path: ':id', component: NoteDetailComponent } ]  },
+  // { path: 'sass', component: NoteListComponent, children: [ { path: ':id', component: NoteDetailComponent } ] },
+  // { path: 'vue', component: NoteListComponent, children: [ { path: ':id', component: NoteDetailComponent } ]  },
+  // { path: 'git', component: NoteListComponent, children: [ { path: ':id', component: NoteDetailComponent } ]  },
   {
     path: 'my-notes',
     component: NoteListComponent,

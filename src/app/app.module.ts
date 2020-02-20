@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -13,15 +13,19 @@ import { NoteDetailComponent } from './views/note-detail/note-detail.component';
 import { UserListComponent } from './views/user-list/user-list.component';
 import { UserDetailComponent } from './views/user-detail/user-detail.component';
 
-
 import { JwtInterceptor} from './interceptors/jwt.interceptor';
 import { ErrorInterceptor} from './interceptors/error.interceptor';
+import { AppInitializer} from './app.initializer';
 import { NavbarComponent } from './components/navbar/navbar.component';
 
 import { registerLocaleData } from '@angular/common';
 import localeRu from '@angular/common/locales/ru';
 
 registerLocaleData(localeRu, 'ru');
+
+const initializeApp = (appInitService: AppInitializer) => {
+  return (): Promise<any> => appInitService.init();
+};
 
 @NgModule({
   declarations: [
@@ -42,8 +46,10 @@ registerLocaleData(localeRu, 'ru');
     ReactiveFormsModule
   ],
   providers: [
+    AppInitializer,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: APP_INITIALIZER, useFactory: initializeApp, deps: [AppInitializer], multi: true }
   ],
   bootstrap: [AppComponent]
 })

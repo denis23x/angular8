@@ -24,31 +24,14 @@
     <div class="navbar-start">
       <a
         class="navbar-item navbar-logo"
-        [routerLink]="['/angular']"
-        [routerLinkActive]="['is-active']">
-        <img src="../../../assets/logos/angular.png" alt="Angular">
-        <span>Angular</span>
-      </a>
-      <a
-        class="navbar-item navbar-logo"
-        [routerLink]="['/sass']"
-        [routerLinkActive]="['is-active']">
-        <img src="../../../assets/logos/sass.png" alt="SASS">
-        <span>SASS</span>
-      </a>
-      <a
-        class="navbar-item navbar-logo"
-        [routerLink]="['/vue']"
-        [routerLinkActive]="['is-active']">
-        <img src="../../../assets/logos/vue.png" alt="Vue">
-        <span>Vue</span>
-      </a>
-      <a
-        class="navbar-item navbar-logo"
-        [routerLink]="['/git']"
-        [routerLinkActive]="['is-active']">
-        <img src="../../../assets/logos/git.png" alt="Git">
-        <span>Git</span>
+        [routerLink]="collection.path"
+        [routerLinkActive]="['is-active']"
+        *ngFor="let collection of collections">
+        <img
+          *ngIf="collection.icon"
+          [src]="backendHost + collection.icon.url"
+          [alt]="collection.title">
+        <span>{{collection.title}}</span>
       </a>
     </div>
     <div class="navbar-end" *ngIf="!currentUser">
