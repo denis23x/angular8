@@ -20,6 +20,17 @@ html, body {
   background: whitesmoke;
 }
 
+button {
+  &.button {
+    &.is-danger-border {
+      border-color: #f14668;
+      &:focus {
+        box-shadow: 0 0 0 0.125em rgba(241, 70, 104, 0.25);
+      }
+    }
+  }
+}
+
 .navbar-item {
   &.navbar-logo {
     display: flex;

@@ -41,11 +41,16 @@
     <div class="field">
       <label class="label" for="collection">Collection</label>
       <div class="control">
-        <div class="dropdown is-hoverable">
+        <div class="dropdown is-hoverable" (mouseleave)="collectionControl.markAsTouched()">
           <div class="dropdown-trigger">
-            <button id="collection" class="button" aria-haspopup="true" aria-controls="dropdown-collection">
-              <span *ngIf="!currentCollection" class="dropdown-label">Select</span>
-              <span *ngIf="currentCollection" class="dropdown-label">
+            <button
+              id="collection"
+              class="button"
+              [class.is-danger-border]="collectionControl.invalid && collectionControl.touched"
+              aria-haspopup="true"
+              aria-controls="dropdown-collection">
+              <span *ngIf="collectionControl.invalid" class="dropdown-label">Select</span>
+              <span *ngIf="collectionControl.valid" class="dropdown-label">
                 <img *ngIf="currentCollection.icon" [src]="backendHost + currentCollection.icon.url" [alt]="currentCollection.title">
                 {{currentCollection.title}}
               </span>
@@ -58,8 +63,8 @@
             <div class="dropdown-content">
               <a
                 class="dropdown-item dropdown-icon"
-                *ngFor="let collection of collectionsList"
-                (click)="selectCollection(collection)">
+                *ngFor="let collection of collectionsService.collectionsList"
+                (click)="collectionControl.setValue(collection.id)">
                 <img *ngIf="collection.icon" [src]="backendHost + collection.icon.url" [alt]="collection.title">
                 {{collection.title}}
               </a>
@@ -68,7 +73,7 @@
         </div>
       </div>
       <div *ngIf="collectionControl.invalid && collectionControl.touched">
-        <p class="help is-danger" *ngIf="collectionControl.errors.required">Collection is required</p>
+        <p class="help is-danger" *ngIf="collectionControl.errors.min">Collection is required</p>
       </div>
     </div>
     <hr>
@@ -77,10 +82,26 @@
         <button
           class="button is-success mr-1"
           [disabled]="addForm.invalid"
-          type="submit">Add note</button>
-        <button
-          class="button is-info"
-          type="submit">In draft</button>
+          type="submit">Add note
+        </button>
+        <div class="dropdown is-hoverable is-up is-right">
+          <div class="dropdown-trigger">
+            <button
+              class="button is-info"
+              [disabled]="descriptionControl.invalid && titleControl.invalid"
+              (click)="saveDraft()"
+              aria-haspopup="true"
+              aria-controls="dropdown-draft">In draft
+            </button>
+          </div>
+          <div class="dropdown-menu" id="dropdown-draft" role="menu">
+            <div class="dropdown-content">
+              <div class="dropdown-item">
+                <p>Draft note will be saved <strong>in this browser</strong></p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </form>

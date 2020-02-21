@@ -2,30 +2,31 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '@services/api.service';
 import { Note } from '@models/note';
-import { Subscription } from 'rxjs';
 import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-note-detail',
-  templateUrl: './note-detail.component.html'
+  templateUrl: './note-detail.component.html',
+  styleUrls: ['./note-detail.component.scss']
 })
 export class NoteDetailComponent implements OnInit {
   private note: Note;
-  private routeSubscription: Subscription;
 
   constructor(
-    private activatedRoute: ActivatedRoute,
+    private route: ActivatedRoute,
     private apiService: ApiService,
     private location: Location
   ) { }
 
   ngOnInit(): void {
-    this.routeSubscription = this.activatedRoute.params.subscribe(({ id }) => {
-      this.apiService.getNoteById(id).subscribe(note => {
-        this.note = note;
-        console.log(this.note);
-      });
-    });
+    this.getNote();
   }
 
+  getNote(): void {
+    this.apiService.getNoteById(this.route.snapshot.params.id).subscribe(({ id, title, description, created_at, updated_at, user, collections }) => {
+      setTimeout(() => {
+        this.note = new Note(id, title, description, created_at, updated_at, user, collections);
+      }, 3000);
+    });
+  }
 }

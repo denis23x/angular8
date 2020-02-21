@@ -5,8 +5,8 @@ import { CollectionsService } from '@services/collections.service';
 import { ApiService } from '@services/api.service';
 import { environment } from '@environments/environment';
 import { AuthService } from '@services/auth.service';
-import { User } from '@models/user';
 import { NotificationService } from '@services/notification.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-note-edit',
@@ -15,14 +15,12 @@ import { NotificationService } from '@services/notification.service';
 })
 export class NoteEditComponent implements OnInit {
   private backendHost: string = environment.backendHost;
-  private currentCollection: Collection;
-  private collectionsList: Array<Collection> = this.collectionsService.collectionsList;
-  private currentUser: User = this.authService.currentUserValue;
 
   private addForm: FormGroup = this.formBuilder.group({
+    user: [this.authService.currentUserValue.user.id, [ Validators.required ] ],
     title: ['', [ Validators.minLength(4), Validators.maxLength(40), Validators.required ] ],
     description: ['', [ Validators.minLength(40), Validators.maxLength(8000), Validators.required ] ],
-    collection: [null, [ Validators.required ] ],
+    collection: [0, [ Validators.min(1), Validators.required ] ],
   });
 
   constructor(
@@ -31,6 +29,7 @@ export class NoteEditComponent implements OnInit {
     private notificationService: NotificationService,
     private authService: AuthService,
     private apiService: ApiService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -38,26 +37,39 @@ export class NoteEditComponent implements OnInit {
 
   onSubmit(): void {
     if (this.addForm.valid) {
-      const user = this.currentUser.user.id;
-      const { title, description, collection } = this.addForm.value;
+      const { user, title, description, collection } = this.addForm.value;
 
-      this.apiService.postNote({ user, title, description, collection }).subscribe((response) => {
+      this.apiService.postNote({ user, title, description, collection }).subscribe(() => {
         this.notificationService.addNotify({
           className: 'is-success',
           message: 'Success',
           delay: 5000
         });
+
+        this.router.navigate(['/my-notes']).then(() => {
+          console.warn('succes navigate');
+        });
       });
     }
   }
 
-  selectCollection(collection: Collection): void {
-    this.currentCollection = collection;
-    this.collectionControl.setValue(this.currentCollection.id);
+  // TODO: handle draft
+  saveDraft(): void {
+    localStorage.setItem('draftNote', JSON.stringify(this.addForm.value));
+
+    this.notificationService.addNotify({
+      className: 'is-success',
+      message: 'Saved',
+      delay: 5000
+    });
   }
 
   get titleControl() { return this.addForm.get('title'); }
   get descriptionControl() { return this.addForm.get('description'); }
   get collectionControl() { return this.addForm.get('collection'); }
+
+  get currentCollection(): Collection {
+    return this.collectionsService.collectionsList.filter(c => c.id === this.collectionControl.value)[0];
+  }
 
 }
