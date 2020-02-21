@@ -1,0 +1,87 @@
+<div class="container-note-add">
+  <form class="box" [formGroup]="addForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <h1 class="title is-4">New note</h1>
+      <h2 class="subtitle is-6">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h2>
+    </div>
+    <div class="field">
+      <label class="label" for="title">Title</label>
+      <div class="control">
+        <input
+          class="input"
+          [class.is-danger]="titleControl.invalid && titleControl.touched"
+          type="text"
+          id="title"
+          formControlName="title"
+          placeholder="Title" />
+      </div>
+      <div *ngIf="titleControl.invalid && titleControl.touched">
+        <p class="help is-danger" *ngIf="titleControl.errors.required">Title is required</p>
+        <p class="help is-danger" *ngIf="titleControl.errors.minlength">Title min length 4</p>
+        <p class="help is-danger" *ngIf="titleControl.errors.maxlength">Title min length 40</p>
+      </div>
+    </div>
+    <div class="field">
+      <label class="label" for="description">Description</label>
+      <div class="control">
+        <textarea
+          class="textarea"
+          [class.is-danger]="descriptionControl.invalid && descriptionControl.touched"
+          id="description"
+          formControlName="description"
+          placeholder="Description">
+        </textarea>
+      </div>
+      <div *ngIf="descriptionControl.invalid && descriptionControl.touched">
+        <p class="help is-danger" *ngIf="descriptionControl.errors.required">Description is required</p>
+        <p class="help is-danger" *ngIf="descriptionControl.errors.minlength">Description min length 40</p>
+        <p class="help is-danger" *ngIf="descriptionControl.errors.maxlength">Title min length 8000</p>
+      </div>
+    </div>
+    <div class="field">
+      <label class="label" for="collection">Collection</label>
+      <div class="control">
+        <div class="dropdown is-hoverable">
+          <div class="dropdown-trigger">
+            <button id="collection" class="button" aria-haspopup="true" aria-controls="dropdown-collection">
+              <span *ngIf="!currentCollection" class="dropdown-label">Select</span>
+              <span *ngIf="currentCollection" class="dropdown-label">
+                <img *ngIf="currentCollection.icon" [src]="backendHost + currentCollection.icon.url" [alt]="currentCollection.title">
+                {{currentCollection.title}}
+              </span>
+              <span class="ml-1 icon is-small">
+                <img src="../../../assets/icons/chevron-down.svg" alt="Collection">
+              </span>
+            </button>
+          </div>
+          <div class="dropdown-menu" id="dropdown-collection" role="menu">
+            <div class="dropdown-content">
+              <a
+                class="dropdown-item dropdown-icon"
+                *ngFor="let collection of collectionsList"
+                (click)="selectCollection(collection)">
+                <img *ngIf="collection.icon" [src]="backendHost + collection.icon.url" [alt]="collection.title">
+                {{collection.title}}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="collectionControl.invalid && collectionControl.touched">
+        <p class="help is-danger" *ngIf="collectionControl.errors.required">Collection is required</p>
+      </div>
+    </div>
+    <hr>
+    <div class="field is-grouped is-grouped-centered">
+      <div class="control">
+        <button
+          class="button is-success mr-1"
+          [disabled]="addForm.invalid"
+          type="submit">Add note</button>
+        <button
+          class="button is-info"
+          type="submit">In draft</button>
+      </div>
+    </div>
+  </form>
+</div>

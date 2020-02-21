@@ -1,0 +1,17 @@
+.dropdown-label {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  img {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin: 0 0.5rem 0 0;
+  }
+}
+
+.dropdown-item {
+  &.dropdown-icon {
+    @extend .dropdown-label;
+  }
+}

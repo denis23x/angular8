@@ -1,4 +1,4 @@
-import { Note } from './note';
+import { Note } from '@models/note';
 
 export class Collection {
   constructor(

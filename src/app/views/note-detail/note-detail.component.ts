@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {ApiService} from '../../services/api.service';
-import {Note} from '../../models/note';
-import {Subscription} from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { ApiService } from '@services/api.service';
+import { Note } from '@models/note';
+import { Subscription } from 'rxjs';
 import { Location } from '@angular/common';
 
 @Component({
@@ -19,7 +19,7 @@ export class NoteDetailComponent implements OnInit {
     private location: Location
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.routeSubscription = this.activatedRoute.params.subscribe(({ id }) => {
       this.apiService.getNoteById(id).subscribe(note => {
         this.note = note;

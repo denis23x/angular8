@@ -26,7 +26,7 @@
         class="navbar-item navbar-logo"
         [routerLink]="collection.path"
         [routerLinkActive]="['is-active']"
-        *ngFor="let collection of collections">
+        *ngFor="let collection of collectionsService.collectionsList">
         <img
           *ngIf="collection.icon"
           [src]="backendHost + collection.icon.url"
@@ -34,7 +34,7 @@
         <span>{{collection.title}}</span>
       </a>
     </div>
-    <div class="navbar-end" *ngIf="!currentUser">
+    <div class="navbar-end" *ngIf="!authService.currentUserValue">
       <div class="navbar-item">
         <div class="buttons">
           <a class="button is-primary" [routerLink]="['/join']">
@@ -44,12 +44,13 @@
         </div>
       </div>
     </div>
-    <div class="navbar-end" *ngIf="currentUser">
+    <div class="navbar-end" *ngIf="authService.currentUserValue">
       <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">{{currentUser.user.email}}</a>
+        <a class="navbar-link">{{authService.currentUserValue.user.email}}</a>
         <div class="navbar-dropdown">
-          <a class="navbar-item" [routerLink]="['/profile']" [routerLinkActive]="['is-active']">Profile</a>
+          <a class="navbar-item" [routerLink]="['/add']" [routerLinkActive]="['is-active']">Add note</a>
           <a class="navbar-item" [routerLink]="['/my-notes']" [routerLinkActive]="['is-active']">My notes</a>
+          <a class="navbar-item" [routerLink]="['/profile']" [routerLinkActive]="['is-active']">Profile</a>
           <a class="navbar-item" [routerLink]="['/users']" [routerLinkActive]="['is-active']">Find user</a>
           <hr class="navbar-divider">
           <a class="navbar-item">About</a>

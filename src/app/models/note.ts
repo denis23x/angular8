@@ -1,5 +1,5 @@
-import { Collection } from './collection';
-import { UserInner } from './user';
+import { Collection } from '@models/collection';
+import { UserInner } from '@models/user';
 
 export class Note {
   constructor(
@@ -11,4 +11,5 @@ export class Note {
     public user: UserInner,
     public collections: Collection[]
   ) { }
+
 }

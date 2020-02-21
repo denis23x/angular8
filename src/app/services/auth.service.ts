@@ -2,17 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-import { User } from '../models/user';
-import { ApiService } from './api.service';
-import {Router} from '@angular/router';
+import { User } from '@models/user';
+import { ApiService } from '@services/api.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private currentUserSubject: BehaviorSubject<User>;
-  public currentUser: Observable<User>;
+  private currentUser: Observable<User>;
 
   constructor(
     private http: HttpClient,
@@ -27,7 +26,7 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
-  login({ identifier, password }): Observable<any> {
+  public login({ identifier, password }): Observable<any> {
     return this.apiService.postLoginUser({ identifier, password }).pipe(map(user => {
       localStorage.setItem('currentUser', JSON.stringify(user));
       this.currentUserSubject.next(user);
@@ -35,7 +34,7 @@ export class AuthService {
     }));
   }
 
-  logout() {
+  public logout(): void {
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
     this.router.navigate(['/login']).then(() => {

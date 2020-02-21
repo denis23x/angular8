@@ -10,12 +10,12 @@ import {first} from 'rxjs/operators';
   templateUrl: './join.component.html'
 })
 export class JoinComponent implements OnInit {
-  returnUrl: string;
+  private returnUrl: string;
 
-  joinForm: FormGroup = this.formBuilder.group({
-    username: ['', [Validators.minLength(4), Validators.required]],
-    email: ['', [Validators.minLength(4), Validators.email, Validators.required]],
-    password: ['', [Validators.minLength(4), Validators.required]]
+  private joinForm: FormGroup = this.formBuilder.group({
+    username: ['', [ Validators.minLength(4), Validators.required] ],
+    email: ['', [ Validators.minLength(4), Validators.email, Validators.required] ],
+    password: ['', [ Validators.minLength(4), Validators.required] ]
   });
 
   constructor(
@@ -32,11 +32,11 @@ export class JoinComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/profile';
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.joinForm.valid) {
       this.apiService.postRegistrationUser(this.joinForm.value).subscribe(() => {
         const identifier = this.joinForm.value.email;
@@ -45,11 +45,7 @@ export class JoinComponent implements OnInit {
           this.router.navigate([this.returnUrl]).then(() => {
             console.warn('success navigate');
           });
-        }, error => {
-          console.warn('authService.login error');
         });
-      }, error => {
-        console.warn('apiService.postRegistrationUser error');
       });
     }
   }

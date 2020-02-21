@@ -1,13 +1,13 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {ApiService} from '../../services/api.service';
-import {AuthService} from '../../services/auth.service';
-import {CollectionsService} from '../../services/collections.service';
-import {Note} from '../../models/note';
-import {User} from '../../models/user';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ApiService } from '@services/api.service';
+import { AuthService } from '@services/auth.service';
+import { CollectionsService } from '@services/collections.service';
+import { Note } from '@models/note';
+import { User } from '@models/user';
 import { ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
+import { Collection } from '@models/collection';
 import Masonry from 'masonry-layout';
-import {Subject} from 'rxjs';
-import {Collection} from '../../models/collection';
 
 @Component({
   selector: 'app-note-list',

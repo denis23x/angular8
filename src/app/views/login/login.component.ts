@@ -10,11 +10,11 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './login.component.html'
 })
 export class LoginComponent implements OnInit {
-  returnUrl: string;
+   private returnUrl: string;
 
-  loginForm: FormGroup = this.formBuilder.group({
-    identifier: ['', [Validators.minLength(4), Validators.required]],
-    password: ['', [Validators.minLength(4), Validators.required]]
+   private loginForm: FormGroup = this.formBuilder.group({
+    identifier: ['', [ Validators.minLength(4), Validators.required ] ],
+    password: ['', [ Validators.minLength(4), Validators.required ] ]
   });
 
   constructor(
@@ -30,11 +30,11 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/profile';
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).pipe(first()).subscribe(() => {
         this.router.navigate([this.returnUrl]).then(() => {
@@ -48,4 +48,5 @@ export class LoginComponent implements OnInit {
 
   get identifierControl() { return this.loginForm.get('identifier'); }
   get passwordControl() { return this.loginForm.get('password'); }
+
 }

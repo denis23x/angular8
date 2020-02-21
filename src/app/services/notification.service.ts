@@ -13,4 +13,5 @@ export class NotificationService {
   public addNotify(params: object): void {
     this.event.emit(params);
   }
+
 }

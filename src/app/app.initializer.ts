@@ -1,8 +1,8 @@
-import {Injectable, Injector} from '@angular/core';
-import {CollectionsService} from './services/collections.service';
-import {NoteListComponent} from './views/note-list/note-list.component';
-import {Route, Router} from '@angular/router';
-import {NoteDetailComponent} from './views/note-detail/note-detail.component';
+import { Injectable, Injector } from '@angular/core';
+import { CollectionsService } from '@services/collections.service';
+import { NoteListComponent } from '@views/note-list/note-list.component';
+import { Route, Router } from '@angular/router';
+import { NoteDetailComponent } from '@views/note-detail/note-detail.component';
 
 @Injectable({
   providedIn: 'root'

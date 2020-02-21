@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {BehaviorSubject, Observable} from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ApiService } from './api.service';
-import {Router} from '@angular/router';
-import {Collection} from '../models/collection';
+import { ApiService } from '@services/api.service';
+import { Router } from '@angular/router';
+import { Collection } from '@models/collection';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CollectionsService {
   private collectionsSubject: BehaviorSubject<Array<Collection>>;
-  public collections: Observable<Array<Collection>>;
+  private collections: Observable<Array<Collection>>;
 
   constructor(
     private http: HttpClient,
@@ -26,7 +26,7 @@ export class CollectionsService {
     return this.collectionsSubject.value;
   }
 
-  getCollectionsList(): Observable<any> {
+  public getCollectionsList(): Observable<any> {
     return this.apiService.getCollectionsList().pipe(map(collections => {
       this.collectionsSubject.next(Array.from(collections, ({ id, title, path, icon, created_at, updated_at, notes }) => {
         return new Collection(id, title, path, icon, created_at, updated_at, notes);

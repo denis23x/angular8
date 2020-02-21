@@ -1,5 +1,5 @@
-import { Note } from './note';
-import { Collection } from './collection';
+import { Note } from '@models/note';
+import { Collection } from '@models/collection';
 
 export class UserRole {
   id: number;
@@ -22,6 +22,7 @@ export class UserInner {
     public notes: Note[],
     public collections: Collection[]
   ) { }
+
 }
 
 export class User {

@@ -46,6 +46,14 @@ html, body {
   }
 }
 
+.container-note-add {
+  padding: 1rem;
+  form {
+    max-width: 768px;
+    margin: 0 auto;
+  }
+}
+
 .container-login,
 .container-join {
   padding: 1rem;

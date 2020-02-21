@@ -11,14 +11,8 @@
           <div class="card-content">
             <div class="media">
               <div class="media-content">
-                <a
-                  class="title is-4 is-block has-text-info mb-0"
-                  [routerLink]="(isMyNotesView() ? ['/my-notes', note.id] : [note.id])">{{note.title}}
-                </a>
-                <a
-                  class="subtitle is-6 is-lowercase"
-                  [routerLink]="(isMyNotesView() ? ['/profile'] : ['/users', note.user.id])">@{{note.user.username}}
-                </a>
+                <a class="title is-4 is-block has-text-info mb-0" [routerLink]="[note.id]">{{note.title}}</a>
+                <a class="subtitle is-6 is-lowercase" [routerLink]="(isMyNotesView() ? ['/profile'] : ['/users', note.user.id])">@{{note.user.username}}</a>
               </div>
             </div>
             <div class="content is-size-7">
