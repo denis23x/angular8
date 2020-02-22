@@ -8,6 +8,7 @@
       "@guards/*": ["app/guards/*"],
       "@interceptors/*": ["app/interceptors/*"],
       "@models/*": ["app/models/*"],
+      "@pipes/*": ["app/pipes/*"],
       "@services/*": ["app/services/*"],
       "@views/*": ["app/views/*"]
     },

@@ -20,6 +20,7 @@ import { NoteEditComponent } from '@views/note-edit/note-edit.component';
 
 import { registerLocaleData } from '@angular/common';
 import localeRu from '@angular/common/locales/ru';
+import { MarkdownItPipe } from '@pipes/markdown-it.pipe';
 
 registerLocaleData(localeRu, 'ru');
 
@@ -39,7 +40,8 @@ const initializeApp = (appInitService: AppInitializer) => {
     UserDetailComponent,
     NavbarComponent,
     NotificationComponent,
-    NoteEditComponent
+    NoteEditComponent,
+    MarkdownItPipe
   ],
   imports: [
     BrowserModule,

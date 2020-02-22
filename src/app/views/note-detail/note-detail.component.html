@@ -9,7 +9,7 @@
       <div class="note-detail-loader" *ngIf="!note">
         <progress class="progress is-small is-primary" max="100"></progress>
       </div>
-      <pre *ngIf="note" [innerHTML]="note.description"></pre>
+      <div *ngIf="note" [innerHTML]="note.description | markdownIt"></div>
     </section>
     <footer class="modal-card-foot">
       <button class="button is-success">Save changes</button>
