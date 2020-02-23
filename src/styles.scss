@@ -1,5 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import "node_modules/bulma/css/bulma.min";
+@import "node_modules/highlight.js/styles/darcula";
+
 $rems: (0, 1, 2, 3, 4, 5); // Adjust this to include the pixel amounts you need.
 $sides: (top, bottom, left, right); $axises: (x, y); // Leave this variable alone
 
@@ -71,5 +74,83 @@ button {
   form {
     max-width: 425px;
     margin: 0 auto;
+  }
+}
+
+.content-inner,
+.note-detail-inner {
+  overflow: auto;
+  ul {
+    display: block;
+    list-style-type: disc;
+    margin: 1em 0;
+    padding: 0 0 0 40px;
+    ul {
+      list-style-type: circle;
+    }
+    li.task-list-item {
+      input {
+        vertical-align: middle;
+      }
+    }
+  }
+  ol {
+    display: block;
+    margin: 1em 0;
+    padding: 0 0 0 40px;
+    li.task-list-item {
+      input {
+        vertical-align: middle;
+      }
+    }
+  }
+  h1 {
+    @extend .title, .is-4;
+  }
+  h2 {
+    @extend .title, .is-5;
+  }
+  h3,
+  h4,
+  h5,
+  h6 {
+    @extend .title, .is-6;
+  }
+  blockquote {
+    border-left: 4px solid #dbdbdb;
+    background: #f5f5f5;
+    display: block;
+    padding: 1em;
+    p {
+      margin: 0;
+    }
+  }
+  p {
+    margin: 1em 0;
+  }
+  pre {
+    border-radius: 6px;
+    &.hljs {
+      padding: 1em;
+    }
+  }
+  table {
+    @extend .table, .is-fullwidth, .is-striped;
+    th, td {
+      min-width: 100px;
+    }
+  }
+  img {
+    display: inline-block;
+    max-width: 35%;
+  }
+  div {
+    &.embed-responsive {
+      margin: 1em 0;
+      @extend .image, .is-16by9;
+      iframe {
+        @extend .has-ratio;
+      }
+    }
   }
 }

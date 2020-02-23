@@ -24,9 +24,7 @@ export class NoteDetailComponent implements OnInit {
 
   getNote(): void {
     this.apiService.getNoteById(this.route.snapshot.params.id).subscribe(({ id, title, description, created_at, updated_at, user, collections }) => {
-      setTimeout(() => {
-        this.note = new Note(id, title, description, created_at, updated_at, user, collections);
-      }, 3000);
+      this.note = new Note(id, title, description, created_at, updated_at, user, collections);
     });
   }
 }

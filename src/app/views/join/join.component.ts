@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {FormBuilder, FormGroup, Validators, AbstractControl} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
-import { ApiService } from '../../services/api.service';
+import { AuthService } from '@services/auth.service';
+import { ApiService } from '@services/api.service';
 import { first } from 'rxjs/operators';
 
 @Component({
@@ -50,8 +50,8 @@ export class JoinComponent implements OnInit {
     }
   }
 
-  get usernameControl() { return this.joinForm.get('username'); }
-  get emailControl() { return this.joinForm.get('email'); }
-  get passwordControl() { return this.joinForm.get('password'); }
+  get usernameControl(): AbstractControl { return this.joinForm.get('username'); }
+  get emailControl(): AbstractControl { return this.joinForm.get('email'); }
+  get passwordControl(): AbstractControl { return this.joinForm.get('password'); }
 
 }

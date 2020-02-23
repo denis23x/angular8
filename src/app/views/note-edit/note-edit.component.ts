@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Collection } from '@models/collection';
 import { CollectionsService } from '@services/collections.service';
 import { ApiService } from '@services/api.service';
@@ -53,8 +53,12 @@ export class NoteEditComponent implements OnInit {
     }
   }
 
+  onInsertMarkdownIt(str: string): void {
+    this.descriptionControl.setValue(`${this.descriptionControl.value}\n${str}\n`);
+  }
+
   // TODO: handle draft
-  saveDraft(): void {
+  onInDraft(): void {
     localStorage.setItem('draftNote', JSON.stringify(this.addForm.value));
 
     this.notificationService.addNotify({
@@ -64,9 +68,9 @@ export class NoteEditComponent implements OnInit {
     });
   }
 
-  get titleControl() { return this.addForm.get('title'); }
-  get descriptionControl() { return this.addForm.get('description'); }
-  get collectionControl() { return this.addForm.get('collection'); }
+  get titleControl(): AbstractControl { return this.addForm.get('title'); }
+  get descriptionControl(): AbstractControl { return this.addForm.get('description'); }
+  get collectionControl(): AbstractControl { return this.addForm.get('collection'); }
 
   get currentCollection(): Collection {
     return this.collectionsService.collectionsList.filter(c => c.id === this.collectionControl.value)[0];

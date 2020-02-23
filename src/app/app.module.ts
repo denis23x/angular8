@@ -17,10 +17,11 @@ import { AppInitializer} from './app.initializer';
 import { NavbarComponent } from '@components/navbar/navbar.component';
 import { NotificationComponent } from '@components/notification/notification.component';
 import { NoteEditComponent } from '@views/note-edit/note-edit.component';
+import { MarkdownItPipe } from '@pipes/markdown-it.pipe';
+import { SanitizerPipe } from '@pipes/sanitizer.pipe';
 
 import { registerLocaleData } from '@angular/common';
 import localeRu from '@angular/common/locales/ru';
-import { MarkdownItPipe } from '@pipes/markdown-it.pipe';
 
 registerLocaleData(localeRu, 'ru');
 
@@ -41,7 +42,8 @@ const initializeApp = (appInitService: AppInitializer) => {
     NavbarComponent,
     NotificationComponent,
     NoteEditComponent,
-    MarkdownItPipe
+    MarkdownItPipe,
+    SanitizerPipe
   ],
   imports: [
     BrowserModule,

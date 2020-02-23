@@ -18,7 +18,7 @@
       <div *ngIf="titleControl.invalid && titleControl.touched">
         <p class="help is-danger" *ngIf="titleControl.errors.required">Title is required</p>
         <p class="help is-danger" *ngIf="titleControl.errors.minlength">Title min length 4</p>
-        <p class="help is-danger" *ngIf="titleControl.errors.maxlength">Title min length 40</p>
+        <p class="help is-danger" *ngIf="titleControl.errors.maxlength">Title max length 40</p>
       </div>
     </div>
     <div class="field">
@@ -35,7 +35,33 @@
       <div *ngIf="descriptionControl.invalid && descriptionControl.touched">
         <p class="help is-danger" *ngIf="descriptionControl.errors.required">Description is required</p>
         <p class="help is-danger" *ngIf="descriptionControl.errors.minlength">Description min length 40</p>
-        <p class="help is-danger" *ngIf="descriptionControl.errors.maxlength">Title min length 8000</p>
+        <p class="help is-danger" *ngIf="descriptionControl.errors.maxlength">Title max length 8000</p>
+      </div>
+    </div>
+    <div class="field">
+      <div class="tags">
+        <span class="tag" (click)="onInsertMarkdownIt('#')">h1</span>
+        <span class="tag" (click)="onInsertMarkdownIt('##')">h2</span>
+        <span class="tag" (click)="onInsertMarkdownIt('###')">h3</span>
+        <span class="tag" (click)="onInsertMarkdownIt('___')">hr</span>
+        <span class="tag" (click)="onInsertMarkdownIt('**bold**')">bold</span>
+        <span class="tag" (click)="onInsertMarkdownIt('*italic*')">italic</span>
+        <span class="tag" (click)="onInsertMarkdownIt('~~strikethrough~~')">strikethrough</span>
+        <span class="tag" (click)="onInsertMarkdownIt('> blockquote')">blockquote</span>
+        <span class="tag" (click)="onInsertMarkdownIt('==mark==')">mark</span>
+        <span class="tag" (click)="onInsertMarkdownIt('`code`')">code</span>
+        <span class="tag" (click)="onInsertMarkdownIt('++insert++')">insert</span>
+        <span class="tag" (click)="onInsertMarkdownIt('H~2~0')">sub</span>
+        <span class="tag" (click)="onInsertMarkdownIt('29^th^')">sup</span>
+        <span class="tag" (click)="onInsertMarkdownIt(':)')">emoji</span>
+        <span class="tag" (click)="onInsertMarkdownIt('- [ ] todo\n- [x] ready')">todo</span>
+        <span class="tag" (click)="onInsertMarkdownIt('+ first\n+ second')">list</span>
+        <span class="tag" (click)="onInsertMarkdownIt('1. first\n2. second')">ordered</span>
+        <span class="tag" (click)="onInsertMarkdownIt('``` js\ncode\n```')">pre</span>
+        <span class="tag" (click)="onInsertMarkdownIt('| # | Caption |\n| - | ------- |\n| 1 | Caption |')">table</span>
+        <span class="tag" (click)="onInsertMarkdownIt('[link](http://sharednotes.com)')">link</span>
+        <span class="tag" (click)="onInsertMarkdownIt('![image](https://octodex.github.com/images/minion.png)')">image</span>
+        <span class="tag" (click)="onInsertMarkdownIt('@[youtube](https://www.youtube.com/watch?v=dQw4w9WgXcQ)')">youtube</span>
       </div>
     </div>
     <div class="field">
@@ -89,7 +115,7 @@
             <button
               class="button is-info"
               [disabled]="descriptionControl.invalid && titleControl.invalid"
-              (click)="saveDraft()"
+              (click)="onInDraft()"
               aria-haspopup="true"
               aria-controls="dropdown-draft">In draft
             </button>

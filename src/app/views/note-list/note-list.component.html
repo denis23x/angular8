@@ -9,16 +9,16 @@
       <div class="masonry-card animated fadeIn faster" *ngFor="let note of notesList">
         <div class="card">
           <div class="card-content">
-            <div class="media">
+            <div class="media mb-1">
               <div class="media-content">
                 <a class="title is-4 is-block has-text-info mb-0" [routerLink]="[note.id]">{{note.title}}</a>
                 <a class="subtitle is-6 is-lowercase" [routerLink]="(isMyNotesView() ? ['/profile'] : ['/users', note.user.id])">@{{note.user.username}}</a>
               </div>
             </div>
-            <div class="content is-size-7">
-              {{note.description}}<br>
-              <time class="is-block mt-1" datetime="2016-1-1">{{note.updated_at | date:'d MMMM, HH:mm' : '0' : 'ru'}}</time>
+            <div class="content-wrap">
+              <div class="content-inner is-size-7" [innerHTML]="note.getShortDescription() | markdownIt | sanitizer : 'html'"></div>
             </div>
+            <time class="is-block is-size-7 mt-1">{{note.updated_at | date:'d MMMM, HH:mm' : '0' : 'ru'}}</time>
           </div>
         </div>
       </div>

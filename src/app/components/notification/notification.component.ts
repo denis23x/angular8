@@ -36,11 +36,11 @@ export class NotificationComponent implements OnInit {
     });
   }
 
-  notificationRemove(notify: Notification): void {
+  onNotificationRemove(notify: Notification): void {
     this.notificationList = this.notificationList.filter(n => n.id !== notify.id);
   }
 
-  notificationListActive(): Array<Notification> {
+  getNotificationListActive(): Array<Notification> {
     return this.notificationList.filter(notify => notify.isActive);
   }
 

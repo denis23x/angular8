@@ -12,4 +12,8 @@ export class Note {
     public collections: Collection[]
   ) { }
 
+  public getShortDescription(): string {
+    const codeBlock = /(```\s?[a-z]*\n[\s\S]*?\n```)/g;
+    return this.description.replace(codeBlock, '`code block`').split('___')[0];
+  }
 }
