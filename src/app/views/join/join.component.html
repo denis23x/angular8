@@ -9,8 +9,8 @@
             </figure>
           </div>
           <div class="media-content">
-            <p class="title is-4">John Smith</p>
-            <p class="subtitle is-6">@johnsmith</p>
+            <h4 class="title is-4">John Smith</h4>
+            <h6 class="subtitle is-6">@johnsmith</h6>
           </div>
         </div>
         <div class="content">
@@ -30,7 +30,6 @@
         <input
           class="input"
           [class.is-danger]="usernameControl.invalid && usernameControl.touched"
-          type="text"
           id="username"
           formControlName="username"
           placeholder="Username" />
@@ -46,7 +45,6 @@
         <input
           class="input"
           [class.is-danger]="emailControl.invalid && emailControl.touched"
-          type="text"
           id="email"
           formControlName="email"
           placeholder="Email" />
@@ -75,8 +73,7 @@
       <div class="control">
         <button
           [disabled]="joinForm.invalid"
-          class="button is-success"
-          type="submit">Sign up
+          class="button is-success">Sign up
         </button>
       </div>
     </div>

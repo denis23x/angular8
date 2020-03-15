@@ -59,8 +59,8 @@ export class NoteListComponent implements OnInit {
     }
 
     this.apiService.getNotesList(this.notesListParams).subscribe(notes => {
-      notes.length ? this.notesListSubject.next(Array.from(notes, ({ id, title, description, created_at, updated_at, user, collections }) => {
-        return new Note(id, title, description, created_at, updated_at, user, collections);
+      notes.length ? this.notesListSubject.next(Array.from(notes, ({ id, title, description, created_at, updated_at, user, collection }) => {
+        return new Note(id, title, description, created_at, updated_at, user, collection);
       })) : this.loader = false;
     });
   }

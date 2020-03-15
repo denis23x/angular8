@@ -9,11 +9,11 @@ export class Note {
     public created_at: string,
     public updated_at: string,
     public user: UserInner,
-    public collections: Collection[]
+    public collection: Collection
   ) { }
 
-  public getShortDescription(): string {
-    const codeBlock = /(```\s?[a-z]*\n[\s\S]*?\n```)/g;
-    return this.description.replace(codeBlock, '`code block`').split('___')[0];
-  }
+  // public getShortDescription(): string {
+  //   const codeBlock = /(```\s?[a-z]*\n[\s\S]*?\n```)/g;
+  //   return this.description.replace(codeBlock, '`code block`').split('___')[0];
+  // }
 }

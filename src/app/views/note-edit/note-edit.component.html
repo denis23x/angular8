@@ -1,8 +1,8 @@
 <div class="container-note-add">
   <form class="box" [formGroup]="addForm" (ngSubmit)="onSubmit()">
     <div class="mb-3">
-      <h1 class="title is-4">New note</h1>
-      <h2 class="subtitle is-6">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h2>
+      <h4 class="title is-4">New note</h4>
+      <h6 class="subtitle is-6">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h6>
     </div>
     <div class="field">
       <label class="label" for="title">Title</label>
@@ -10,7 +10,6 @@
         <input
           class="input"
           [class.is-danger]="titleControl.invalid && titleControl.touched"
-          type="text"
           id="title"
           formControlName="title"
           placeholder="Title" />
@@ -107,8 +106,7 @@
       <div class="control">
         <button
           class="button is-success mr-1"
-          [disabled]="addForm.invalid"
-          type="submit">Add note
+          [disabled]="addForm.invalid">Add note
         </button>
         <div class="dropdown is-hoverable is-up is-right">
           <div class="dropdown-trigger">
