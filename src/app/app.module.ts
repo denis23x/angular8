@@ -19,6 +19,7 @@ import { NotificationComponent } from '@components/notification/notification.com
 import { NoteEditComponent } from '@views/note-edit/note-edit.component';
 import { MarkdownItPipe } from '@pipes/markdown-it.pipe';
 import { SanitizerPipe } from '@pipes/sanitizer.pipe';
+import { JdenticonPipe } from '@pipes/jdenticon.pipe';
 
 import { registerLocaleData } from '@angular/common';
 import localeRu from '@angular/common/locales/ru';
@@ -43,7 +44,8 @@ const initializeApp = (appInitService: AppInitializer) => {
     NotificationComponent,
     NoteEditComponent,
     MarkdownItPipe,
-    SanitizerPipe
+    SanitizerPipe,
+    JdenticonPipe
   ],
   imports: [
     BrowserModule,

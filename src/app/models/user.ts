@@ -19,10 +19,10 @@ export class UserInner {
     public role: UserRole | number,
     public created_at: string,
     public updated_at: string,
+    public avatar: string | null,
     public notes: Note[],
     public collections: Collection[]
   ) { }
-
 }
 
 export class User {

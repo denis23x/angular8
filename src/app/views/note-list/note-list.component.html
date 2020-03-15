@@ -10,17 +10,17 @@
         <div class="card">
           <div class="card-header">
             <div class="card-header-title">
-              <div class="media">
-                <div class="media-left">
-                  <figure class="image is-32x32">
-                    <img src="https://bulma.io/images/placeholders/128x128.png" [alt]="note.user.username">
-                  </figure>
+              <ng-container *ngIf="(isMyNotesView() ? ['/profile'] : ['/users', note.user.id]) as userLink">
+                <div class="media">
+                  <div class="media-left">
+                    <a class="is-flex" [routerLink]="userLink" [innerHTML]="note.user.email | jdenticon : 32 | sanitizer : 'html'"></a>
+                  </div>
+                  <div class="media-content has-text-weight-normal is-size-7">
+                    <a class="is-inline-block" [routerLink]="userLink">{{note.user.username}}</a>
+                    <time class="is-block">{{note.updated_at | date:'d MMMM, HH:mm' : '0' : 'ru'}}</time>
+                  </div>
                 </div>
-                <div class="media-content has-text-weight-normal is-size-7">
-                  <a class="is-inline-block" [routerLink]="(isMyNotesView() ? ['/profile'] : ['/users', note.user.id])">{{note.user.username}}</a>
-                  <time class="is-block">{{note.updated_at | date:'d MMMM, HH:mm' : '0' : 'ru'}}</time>
-                </div>
-              </div>
+              </ng-container>
             </div>
           </div>
 <!--          <div class="card-image">-->

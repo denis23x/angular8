@@ -1,6 +1,7 @@
 <div class="container-user-detail">
   <div class="box">
     <div *ngIf="currentUserDetail">
+      <div class="is-flex mr-1" [innerHTML]="currentUserDetail.email | jdenticon : 128 | sanitizer : 'html'"></div>
       <h1 class="title is-1">{{currentUserDetail.username}}</h1>
       <h3 class="subtitle is-3">{{currentUserDetail.email}}</h3>
     </div>

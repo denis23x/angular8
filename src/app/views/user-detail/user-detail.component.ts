@@ -25,8 +25,34 @@ export class UserDetailComponent implements OnInit {
   getUserById(): void {
     const userId = this.isProfileView() ? this.currentUser.user.id : this.route.snapshot.params.id;
 
-    this.apiService.getUserById(userId).subscribe(({ id, username, email, provider, confirmed, blocked, role, created_at, updated_at, notes, collections }) => {
-      this.currentUserDetail = new UserInner(id, username, email, provider, confirmed, blocked, role, created_at, updated_at, notes, collections);
+    this.apiService.getUserById(userId).subscribe(({
+      id,
+      username,
+      email,
+      provider,
+      confirmed,
+      blocked,
+      role,
+      created_at,
+      updated_at,
+      avatar,
+      notes,
+      collections
+    }) => {
+      this.currentUserDetail = new UserInner(
+        id,
+        username,
+        email,
+        provider,
+        confirmed,
+        blocked,
+        role,
+        created_at,
+        updated_at,
+        avatar,
+        notes,
+        collections
+      );
     });
   }
 

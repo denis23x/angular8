@@ -23,6 +23,7 @@
     "animate.css": "^3.7.2",
     "bulma": "^0.8.0",
     "highlight.js": "^9.18.1",
+    "jdenticon": "^2.2.0",
     "markdown-it": "^10.0.0",
     "markdown-it-emoji": "^1.4.0",
     "markdown-it-ins": "^3.0.0",

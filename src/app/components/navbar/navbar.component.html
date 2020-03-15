@@ -46,7 +46,10 @@
     </div>
     <div class="navbar-end" *ngIf="authService.currentUserValue">
       <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">{{authService.currentUserValue.user.email}}</a>
+        <a class="navbar-link" [routerLink]="['/profile']">
+          <div class="is-flex mr-1" [innerHTML]="authService.currentUserValue.user.email | jdenticon : 32 | sanitizer : 'html'"></div>
+          {{authService.currentUserValue.user.username}}
+        </a>
         <div class="navbar-dropdown">
           <a class="navbar-item" [routerLink]="['/add']" [routerLinkActive]="['is-active']">Add note</a>
           <a class="navbar-item" [routerLink]="['/my-notes']" [routerLinkActive]="['is-active']">My notes</a>
