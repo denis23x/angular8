@@ -1,9 +1,95 @@
 <div class="container-user-detail">
   <div class="box">
-    <div *ngIf="currentUserDetail">
-      <div class="is-flex mr-1" [innerHTML]="currentUserDetail.email | jdenticon : 128 | sanitizer : 'html'"></div>
-      <h1 class="title is-1">{{currentUserDetail.username}}</h1>
-      <h3 class="subtitle is-3">{{currentUserDetail.email}}</h3>
+    <div *ngIf="userDetail">
+      <div class="message is-info" *ngIf="isProfileView">
+        <div class="message-body">
+          Сlick on the item to change account settings.
+        </div>
+      </div>
+      <div class="media">
+        <figure class="media-left" (click)="isProfileView && onChangeAvatar()">
+          <div class="is-flex" [innerHTML]="userDetail.getAvatar(128) | sanitizer : 'html'"></div>
+        </figure>
+        <div class="media-content">
+          <div class="content">
+            <span class="title is-3 mr-1">{{userDetail.username}}</span>
+            <span class="subtitle is-5">{{userDetail.email}}</span>
+            <p class="mt-1">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal"
+  [class.is-active]="modalConfig.isActive">
+  <div class="modal-background animated fadeIn faster" (click)="onCloseModal()"></div>
+  <div class="modal-card animated zoomIn faster">
+    <div class="modal-card-head">
+      <p class="modal-card-title">{{modalConfig.title}}</p>
+      <button class="delete" aria-label="close" (click)="onCloseModal()"></button>
+    </div>
+    <div class="modal-card-body">
+      <form
+        class="cropper"
+        [formGroup]="croppingForm"
+        *ngIf="modalConfig.content === 'cropper'">
+        <div class="field" *ngIf="!croppedAvatar || croppedUrl && croppedAvatar">
+          <div class="control">
+            <label class="file-label">
+              <input
+                class="input"
+                formControlName="url"
+                placeholder="Insert link"
+                (change)="onCropperSetUrl($event)" />
+            </label>
+          </div>
+        </div>
+        <div class="field" *ngIf="!croppedAvatar || croppedFile && croppedAvatar">
+          <div class="control">
+            <div class="file has-name is-fullwidth">
+              <label class="file-label">
+                <input
+                  class="file-input"
+                  formControlName="file"
+                  type="file"
+                  (change)="onCropperSetFile($event.target.files)" />
+                <span class="file-cta" *ngIf="!croppedFile">
+                  <span class="file-label">Browse on device</span>
+                </span>
+                <span
+                  class="file-name"
+                  [class.is-disabled]="croppedFile && croppedAvatar">{{croppedFile ? croppedFile.name : ''}}
+                </span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="field" *ngIf="croppedUrl && !croppedAvatar">
+          <div class="cropper-loader">
+            <progress class="progress is-small is-primary" max="100"></progress>
+          </div>
+        </div>
+        <div class="field" *ngIf="croppedUrl || croppedFile">
+          <image-cropper
+            [imageFile]="croppedFile"
+            [imageURL]="croppedUrl"
+            [cropperMinWidth]="128"
+            [cropperMinHeight]="128"
+            (imageCropped)="onCropperResolved($event)"
+            (loadImageFailed)="onCropperRejected()">
+          </image-cropper>
+        </div>
+      </form>
+    </div>
+    <div class="modal-card-foot">
+      <ng-container *ngIf="modalConfig.content === 'cropper' && croppedAvatar">
+        <button class="button is-info" (click)="onCropperReset()">Reset</button>
+        <button class="button is-success" (click)="onCropperSubmit()">Save changes</button>
+      </ng-container>
+      <button class="button" (click)="onCloseModal()">Cancel</button>
     </div>
   </div>
 </div>

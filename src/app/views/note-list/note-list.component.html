@@ -13,7 +13,7 @@
               <ng-container *ngIf="(isMyNotesView() ? ['/profile'] : ['/users', note.user.id]) as userLink">
                 <div class="media">
                   <div class="media-left">
-                    <a class="is-flex" [routerLink]="userLink" [innerHTML]="note.user.email | jdenticon : 32 | sanitizer : 'html'"></a>
+                    <a class="is-flex" [routerLink]="userLink" [innerHTML]="note.getUser().getAvatar(32) | sanitizer : 'html'"></a>
                   </div>
                   <div class="media-content has-text-weight-normal is-size-7">
                     <a class="is-inline-block" [routerLink]="userLink">{{note.user.username}}</a>
@@ -45,6 +45,3 @@
   </div>
   <router-outlet></router-outlet>
 </div>
-
-<!-- TODO: remove short description? -->
-<!--<div class="content-inner is-size-7" [innerHTML]="note.getShortDescription() | markdownIt | sanitizer : 'html'"></div>-->

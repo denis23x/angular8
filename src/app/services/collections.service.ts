@@ -11,7 +11,7 @@ import { Collection } from '@models/collection';
 })
 export class CollectionsService {
   private collectionsSubject: BehaviorSubject<Array<Collection>>;
-  private collections: Observable<Array<Collection>>;
+  public collections: Observable<Array<Collection>>;
 
   constructor(
     private http: HttpClient,
@@ -28,9 +28,7 @@ export class CollectionsService {
 
   public getCollectionsList(): Observable<any> {
     return this.apiService.getCollectionsList().pipe(map(collections => {
-      this.collectionsSubject.next(Array.from(collections, ({ id, title, path, icon, created_at, updated_at, notes }) => {
-        return new Collection(id, title, path, icon, created_at, updated_at, notes);
-      }));
+      this.collectionsSubject.next(Array.from(collections, collection => new Collection(collection)));
 
       return collections;
     }));

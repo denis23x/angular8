@@ -3,7 +3,7 @@ import { ApiService } from '@services/api.service';
 import { AuthService } from '@services/auth.service';
 import { CollectionsService } from '@services/collections.service';
 import { Note } from '@models/note';
-import { User } from '@models/user';
+import { UserInner } from '@models/user';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { Collection } from '@models/collection';
@@ -17,8 +17,8 @@ import Masonry from 'masonry-layout';
 export class NoteListComponent implements OnInit {
   @ViewChild('masonryInner', { static: false }) masonryInner: ElementRef;
 
-  private currentUser: User = this.authService.currentUserValue;
-  private currentCollection: Collection = this.collectionsService.collectionsList.find(c => c.path === this.route.snapshot.routeConfig.path);
+  private currentUser: UserInner;
+  private currentCollection: Collection;
   private notesList: Note[] = [];
   private notesListParams: any = {};
   private notesListSubject: Subject<Array<Note>> = new Subject<Array<Note>>();
@@ -33,7 +33,14 @@ export class NoteListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getNotesList();
+    this.authService.currentUser.subscribe(({ user }) => {
+      this.currentUser = user;
+    });
+
+    this.collectionsService.collections.subscribe((collections) => {
+      this.currentCollection = collections.find(collection => collection.path === this.route.snapshot.routeConfig.path);
+      this.getNotesList();
+    });
 
     this.notesListSubject.subscribe(notes => {
       this.notesList = notes;
@@ -53,30 +60,13 @@ export class NoteListComponent implements OnInit {
 
   getNotesList(): void {
     if (this.isMyNotesView()) {
-      this.notesListParams.user = this.currentUser.user.id;
+      this.notesListParams.user = this.currentUser.id;
     } else {
       this.notesListParams.collection = this.currentCollection.id;
     }
 
     this.apiService.getNotesList(this.notesListParams).subscribe(notes => {
-      notes.length ? this.notesListSubject.next(Array.from(notes, ({
-        id,
-        title,
-        description,
-        created_at,
-        updated_at,
-        user,
-        collection
-      }) => {
-        return new Note(
-          id,
-          title,
-          description,
-          created_at,
-          updated_at,
-          user,
-          collection);
-      })) : this.loader = false;
+      notes.length ? this.notesListSubject.next(Array.from(notes, note => new Note(note))) : this.loader = false;
     });
   }
 

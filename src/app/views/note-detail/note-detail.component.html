@@ -1,19 +1,19 @@
 <div class="modal is-active">
   <div class="modal-background animated fadeIn faster" (click)="location.back()"></div>
   <div class="modal-card animated zoomIn faster">
-    <header class="modal-card-head">
+    <div class="modal-card-head">
       <p class="modal-card-title">{{note ? note.title : ''}}</p>
       <button class="delete" aria-label="close" (click)="location.back()"></button>
-    </header>
-    <section class="modal-card-body">
+    </div>
+    <div class="modal-card-body">
       <div class="note-detail-loader" *ngIf="!note">
         <progress class="progress is-small is-primary" max="100"></progress>
       </div>
       <div class="note-detail-inner" *ngIf="note" [innerHTML]="note.description | markdownIt | sanitizer : 'html'"></div>
-    </section>
-    <footer class="modal-card-foot">
+    </div>
+    <div class="modal-card-foot">
       <button class="button is-success">Save changes</button>
       <button class="button">Cancel</button>
-    </footer>
+    </div>
   </div>
 </div>

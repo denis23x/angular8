@@ -61,4 +61,9 @@ export class ApiService {
   public getUserById(id: number): Observable<any> {
     return this.httpClient.get(`${this.host}/users/${id}`);
   }
+
+  public putUserById(id: number, params?: object): Observable<any> {
+    return this.httpClient.put(`${this.host}/users/${id}`, this.setParams(params));
+  }
+
 }

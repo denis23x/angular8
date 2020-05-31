@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ImageCropperModule } from 'ngx-image-cropper';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from '@views/home/home.component';
@@ -19,7 +20,6 @@ import { NotificationComponent } from '@components/notification/notification.com
 import { NoteEditComponent } from '@views/note-edit/note-edit.component';
 import { MarkdownItPipe } from '@pipes/markdown-it.pipe';
 import { SanitizerPipe } from '@pipes/sanitizer.pipe';
-import { JdenticonPipe } from '@pipes/jdenticon.pipe';
 
 import { registerLocaleData } from '@angular/common';
 import localeRu from '@angular/common/locales/ru';
@@ -44,14 +44,14 @@ const initializeApp = (appInitService: AppInitializer) => {
     NotificationComponent,
     NoteEditComponent,
     MarkdownItPipe,
-    SanitizerPipe,
-    JdenticonPipe
+    SanitizerPipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ImageCropperModule
   ],
   providers: [
     AppInitializer,

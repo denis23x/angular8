@@ -1,0 +1,35 @@
+.container-user-detail {
+  & > .box {
+    .media {
+      align-items: center;
+      .media-left {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.modal-card-body {
+  .cropper {
+    .field {
+      .cropper-loader {
+        max-width: 20rem;
+        padding: 2.75rem 1.25rem 0 1.25rem;
+        margin: 0 auto;
+      }
+      .control {
+        .file-name {
+          padding-left: calc(.75em - 1px);
+          padding-right: calc(.75em - 1px);
+          &.is-disabled {
+            border-color: #f5f5f5;
+            background-color: #f5f5f5;
+            color: #d0d0d0;
+            border-radius: 4px;
+            cursor: not-allowed;
+          }
+        }
+      }
+    }
+  }
+}

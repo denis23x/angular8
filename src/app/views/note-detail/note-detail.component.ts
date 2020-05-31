@@ -23,8 +23,8 @@ export class NoteDetailComponent implements OnInit {
   }
 
   getNote(): void {
-    this.apiService.getNoteById(this.route.snapshot.params.id).subscribe(({ id, title, description, created_at, updated_at, user, collections }) => {
-      this.note = new Note(id, title, description, created_at, updated_at, user, collections);
+    this.apiService.getNoteById(this.route.snapshot.params.id).subscribe(note => {
+      this.note = new Note(note);
     });
   }
 }

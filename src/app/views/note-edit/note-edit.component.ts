@@ -17,10 +17,10 @@ export class NoteEditComponent implements OnInit {
   private backendHost: string = environment.backendHost;
 
   private addForm: FormGroup = this.formBuilder.group({
-    user: [this.authService.currentUserValue.user.id, [ Validators.required ] ],
-    title: ['', [ Validators.minLength(4), Validators.maxLength(40), Validators.required ] ],
-    description: ['', [ Validators.minLength(40), Validators.maxLength(8000), Validators.required ] ],
-    collection: [0, [ Validators.min(1), Validators.required ] ],
+    user: [ null, [ Validators.required ] ],
+    title: [ '', [ Validators.minLength(4), Validators.maxLength(40), Validators.required ] ],
+    description: [ '', [ Validators.minLength(40), Validators.maxLength(8000), Validators.required ] ],
+    collection: [ 0, [ Validators.min(1), Validators.required ] ],
   });
 
   constructor(
@@ -33,6 +33,9 @@ export class NoteEditComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.authService.currentUser.subscribe(({ user }) => {
+      this.userControl.setValue(user.id);
+    });
   }
 
   onSubmit(): void {
@@ -68,6 +71,7 @@ export class NoteEditComponent implements OnInit {
     });
   }
 
+  get userControl(): AbstractControl { return this.addForm.get('user'); }
   get titleControl(): AbstractControl { return this.addForm.get('title'); }
   get descriptionControl(): AbstractControl { return this.addForm.get('description'); }
   get collectionControl(): AbstractControl { return this.addForm.get('collection'); }

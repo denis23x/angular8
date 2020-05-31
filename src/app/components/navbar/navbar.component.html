@@ -34,7 +34,7 @@
         <span>{{collection.title}}</span>
       </a>
     </div>
-    <div class="navbar-end" *ngIf="!authService.currentUserValue">
+    <div class="navbar-end" *ngIf="!userDetail">
       <div class="navbar-item">
         <div class="buttons">
           <a class="button is-primary" [routerLink]="['/join']">
@@ -44,11 +44,11 @@
         </div>
       </div>
     </div>
-    <div class="navbar-end" *ngIf="authService.currentUserValue">
+    <div class="navbar-end" *ngIf="userDetail">
       <div class="navbar-item has-dropdown is-hoverable">
         <a class="navbar-link" [routerLink]="['/profile']">
-          <div class="is-flex mr-1" [innerHTML]="authService.currentUserValue.user.email | jdenticon : 32 | sanitizer : 'html'"></div>
-          {{authService.currentUserValue.user.username}}
+          <div class="is-flex mr-1" [innerHTML]="userDetail.getAvatar(32) | sanitizer : 'html'"></div>
+          {{userDetail.username}}
         </a>
         <div class="navbar-dropdown">
           <a class="navbar-item" [routerLink]="['/add']" [routerLinkActive]="['is-active']">Add note</a>

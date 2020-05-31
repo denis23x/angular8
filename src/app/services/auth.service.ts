@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
   private currentUserSubject: BehaviorSubject<User>;
-  private currentUser: Observable<User>;
+  public currentUser: Observable<User>;
 
   constructor(
     private http: HttpClient,
@@ -29,7 +29,7 @@ export class AuthService {
   public login({ identifier, password }): Observable<any> {
     return this.apiService.postLoginUser({ identifier, password }).pipe(map(user => {
       localStorage.setItem('currentUser', JSON.stringify(user));
-      this.currentUserSubject.next(user);
+      this.currentUserSubject.next(new User(user));
       return user;
     }));
   }
@@ -40,5 +40,11 @@ export class AuthService {
     this.router.navigate(['/login']).then(() => {
       console.warn('success navigate');
     });
+  }
+
+  public updateUserInner(user): void {
+    const { jwt } = JSON.parse(localStorage.getItem('currentUser'));
+    localStorage.setItem('currentUser', JSON.stringify({ jwt, user }));
+    this.currentUserSubject.next(new User({ jwt, user }));
   }
 }
